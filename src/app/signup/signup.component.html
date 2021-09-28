@@ -1,0 +1,107 @@
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<div class="container register">
+    <div class="row">
+        <div class="col-md-3 register-left">
+            <img src="../../assets/icons/vaccine.svg" alt="" />
+            <img src="../../assets/icons/vaccine.svg" alt="" />
+            <h5> Get Your Dose In Time </h5>
+            <p>
+                <span style="font-size: 15px;">
+                    Stay Safe <br>
+                    Wear Mask <br>
+                    Wash Hands <br>
+                </span>
+            </p>
+
+            <br><br><br>
+            <button class="btnLogin">Login</button>
+        </div>
+        <div class="col-md-9 register-right">
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                    <h3 class="register-heading"> Register To Vaccinate </h3>
+                    <form [formGroup]="regForm" (ngSubmit)="postDate()" >
+                        <div class="row register-form">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input type="text" formControlName="firstName" class="form-control" placeholder="First Name *" value="" />
+                                    <div class="errMSG" *ngIf="regForm.controls.firstName.errors && regForm.controls.firstName.touched" >  
+                                        <small *ngIf="regForm.controls.firstName.errors.required" > required field </small>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" formControlName="lastName" class="form-control" placeholder="Last Name *" value="" />
+                                    <div class="errMSG" *ngIf="regForm.controls.lastName.errors && regForm.controls.lastName.touched" >  
+                                        <small *ngIf="regForm.controls.lastName.errors.required" > required field </small>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" formControlName="passWord" class="form-control" placeholder="Password *" value="" #pass />
+                                    <div class="errMSG" *ngIf="regForm.controls.passWord.errors && regForm.controls.passWord.touched" >  
+                                        <small *ngIf="regForm.controls.passWord.errors.required" > required field </small>
+                                        <small *ngIf="regForm.controls.passWord.errors.minlength" > min 8 characters required </small>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" formControlName="confirmPassWord" class="form-control" placeholder="Confirm Password *"
+                                        value="" #cpass/>
+                                    <div class="errMSG" *ngIf="regForm.controls.passWord.touched && regForm.controls.confirmPassWord.touched" >
+                                        <div *ngIf="regForm.controls.confirmPassWord.errors" >
+                                            <small *ngIf="regForm.controls.confirmPassWord.errors.required"> required field </small>
+                                        </div>
+                                        <small *ngIf="pass.value!=cpass.value"> should be same as password </small>
+                                    </div> 
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="maxl">
+                                        <label class="radio inline">
+                                            <input type="radio" formControlName="gender" name="gender" value="male" checked>
+                                            <span> Male </span>
+                                        </label> &nbsp;
+                                        <label class="radio inline">
+                                            <input type="radio" formControlName="gender" name="gender" value="female">
+                                            <span>Female </span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input type="email" formControlName="emailId" class="form-control" placeholder="Your Email *" value="" />
+                                    <div class="errMSG" *ngIf="regForm.controls.emailId.errors && regForm.controls.emailId.touched" >  
+                                        <small *ngIf="regForm.controls.emailId.errors.required" > required field </small>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <input type="tel" formControlName="phoneNo" minlength="10" maxlength="10" name="txtEmpPhone"
+                                        class="form-control" placeholder="Your Phone *" value="" />
+                                    <div class="errMSG" *ngIf="regForm.controls.phoneNo.errors && regForm.controls.phoneNo.touched" >  
+                                        <small *ngIf="regForm.controls.phoneNo.errors.required" > required field </small>
+                                        <small *ngIf="regForm.controls.phoneNo.errors.InvalidPhone && regForm.controls.phoneNo.dirty" > {{ regForm.controls.phoneNo.errors.InvalidPhone.message }} </small>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <input type="date" class="form-control" formControlName="dateOfBirth" placeholder="Date Of Birth" />
+                                    <div class="errMSG" *ngIf="regForm.controls.dateOfBirth.errors && regForm.controls.dateOfBirth.touched" >
+                                        <small>Date Of Birth required</small>
+                                    </div>
+                                    
+                                </div>
+                                
+                                <input type="submit" [disabled]="!regForm.valid" class="btnRegister" value="Register" />
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

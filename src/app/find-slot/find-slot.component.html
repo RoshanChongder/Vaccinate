@@ -1,0 +1,20 @@
+<div class="outer" *ngIf="showstate" >
+
+  <div class="wrapper" id="dd">
+    <select class="dropdown form-select-lg mb-3" #state (change)="getDistrict(state.value)">
+      <option selected> &nbsp;&nbsp; State &nbsp;&nbsp; </option>
+      <option *ngFor="let state of states" [value]="state.state_id" > {{ state.state_name }}</option>
+    </select>
+  </div>
+
+</div>
+<div class="outer" *ngIf="showdist">
+
+  <div  class="wrapper">
+    <select class="dropdown form-select-lg mb-3" >
+      <option selected> &nbsp;&nbsp; District &nbsp;&nbsp; </option>
+      <option *ngFor="let dist of districts" [value]="dist.district_id" >{{ dist.district_name }}</option>
+    </select>
+  </div>
+
+</div>
