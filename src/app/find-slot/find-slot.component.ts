@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import {SlotServiceService} from './slot-service.service';
 @Component({
   selector: 'app-find-slot',
@@ -8,15 +9,43 @@ import {SlotServiceService} from './slot-service.service';
 export class FindSlotComponent implements OnInit {
 
   states : any = [] ;
-  districts : any = [] ;
+  districts : any = [] ; 
+  date : any ;
+  centers : any[] = [] ; 
+  pincode : any ; 
+  
+  selectedState : any ; 
+  selectedDistrict : any ; 
+
   showdist : boolean = false ;
   showstate : boolean = false ;
+  showdate : boolean = false ;
+  searchByDist : boolean = true ;
+  searchByPincode : boolean = false; 
+  showTable : boolean = false ;
+  invalidPin : boolean = false ; 
+
+
+  // to search uisng district 
+  sdist(){
+    this.searchByDist = true ; 
+    this.searchByPincode = false ;
+    this.date = undefined ;
+  }
+
+  // to search using pin code 
+  spin(){
+    this.searchByDist = false ; 
+    this.searchByPincode = true ;
+    this.date = undefined ;
+  }
 
   constructor(private slotService : SlotServiceService ) { 
-     this.slotService.getState().subscribe(
+    // this will load the states  
+    this.slotService.getState().subscribe(
        ( response ) => {
          this.states = response.states ;
-         console.log( this.states[0] );
+         //console.log( this.states[0] );
          this.showstate = true ;       
        } , ( error ) => {
          console.log("Error while fetching states");
@@ -25,14 +54,30 @@ export class FindSlotComponent implements OnInit {
      ) ;
   }
 
-  ngOnInit(): void {
+  findByPincode(){
+    //console.log( this.pincode , typeof this.pincode );
+    this.slotService.getSlotDetailWithPinCode( this.pincode.toString() , this.date ).subscribe(
+      ( response ) => {
+        console.log( response );
+        this.centers = response.sessions ; 
+        this.showTable = true ; 
+        this.searchByPincode = false ;
+      } , ( error ) => {
+        console.log("Some error oured while fetching data wrt to pincode");
+      }
+    )
+    
   }
+  
+  ngOnInit(): void { }
+
 
   getDistrict( state :any ){
+    this.selectedState = state ; 
     console.log( state  , typeof state );
     this.slotService.getDistrict( state ).subscribe(
       ( response ) => {
-        console.log( response );
+        //console.log( response );
         this.districts = response.districts ;
         console.log( this.districts[0] );
         this.showdist = true ;
@@ -43,4 +88,30 @@ export class FindSlotComponent implements OnInit {
     ) ;
   }
 
+  find()
+  {
+    console.log( this.selectedState ,  this.selectedDistrict , this.date );
+    this.slotService.getSlotDetailWithDistrict( this.selectedDistrict , this.date )
+      .subscribe( ( response ) => {
+        console.log( "Response came from the server - " , response );
+        this.centers = response.sessions ; 
+        this.showTable = true ; 
+        this.showdate = this.showdist = this.showstate = false ;
+      } , ( err ) => {
+        console.log("Some error occured while fetching slots.");
+      }  );
+  }
+
+  validatePincode()
+  {
+    if( this.pincode.toString().length == 6 ) this.invalidPin = false ;
+    else this.invalidPin = true ;
+  }
+
+
+  back(){
+    this.showTable = false ; 
+    this.showstate = true ;
+    this.searchByDist = true ;
+  }
 }

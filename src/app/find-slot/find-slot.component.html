@@ -1,20 +1,89 @@
-<div class="outer" *ngIf="showstate" >
+<button type="button" (click)="sdist()" *ngIf="searchByPincode" class="btn btn-primary" id="searchbtn" > Search By District </button>
+<button type="button" (click)="spin()" *ngIf="searchByDist" class="btn btn-primary" id="searchbtn" > Search By PinCode </button>
 
-  <div class="wrapper" id="dd">
-    <select class="dropdown form-select-lg mb-3" #state (change)="getDistrict(state.value)">
-      <option selected> &nbsp;&nbsp; State &nbsp;&nbsp; </option>
-      <option *ngFor="let state of states" [value]="state.state_id" > {{ state.state_name }}</option>
-    </select>
+<div *ngIf="searchByDist">
+
+  <div class="outer" *ngIf="showstate">
+
+    <div class="wrapper" id="dd">
+      <select class="dropdown form-select-lg mb-3" #state (change)="getDistrict(state.value)">
+        <option selected> &nbsp;&nbsp; State &nbsp;&nbsp; </option>
+        <option *ngFor="let state of states" [value]="state.state_id"> {{ state.state_name }}</option>
+      </select>
+    </div>
+
   </div>
+  <div class="outer" *ngIf="showdist">
 
-</div>
-<div class="outer" *ngIf="showdist">
+    <div class="wrapper">
+      <select class="dropdown form-select-lg mb-3" #dist (change)="selectedDistrict=dist.value;showdate=true">
+        <option selected> &nbsp;&nbsp; District &nbsp;&nbsp; </option>
+        <option *ngFor="let dist of districts" [value]="dist.district_id">{{ dist.district_name }}</option>
+      </select>
+    </div>
 
-  <div  class="wrapper">
-    <select class="dropdown form-select-lg mb-3" >
-      <option selected> &nbsp;&nbsp; District &nbsp;&nbsp; </option>
-      <option *ngFor="let dist of districts" [value]="dist.district_id" >{{ dist.district_name }}</option>
-    </select>
   </div>
+  <div class="outer" *ngIf="showdate"  >
 
+    <div id="date-picker-example" class="wrapper">
+      <input class="dropdown form-select-lg mb-3" type="text" placeholder="Date" onfocus="(this.type='date')" #Date
+        (change)="date=Date.value" />
+    </div>
+    <button type="button" id="findBlock" (click)="find()" class="btn btn-light">Find Centers </button>
+
+  </div>
 </div>
+
+<div *ngIf="searchByPincode">
+  <div class="outer" >
+
+    <div id="date-picker-example" class="wrapper">
+      <input class="dropdown form-select-lg mb-3" type="number" placeholder="PinCode" (change)="validatePincode()" [(ngModel)]="pincode" />
+      <small style="color: red;" *ngIf="invalidPin"> Please enter a valid pin code </small>
+    </div>
+    <div id="date-picker-example" class="wrapper">
+      <input class="dropdown form-select-lg mb-3" type="text" placeholder="Date" onfocus="(this.type='date')" #Date
+        (change)="date=Date.value" />
+    </div>
+    <button type="button" id="findBlock" (click)="findByPincode()" class="btn btn-light">Find Centers </button>
+
+  </div>
+</div>
+
+<!-- Code to show the fetched slots using a table  -->
+<button type="button" (click)="back()" *ngIf="showTable" class="btn btn-outline-primary"> Back </button>
+<table class="table table-striped" *ngIf="showTable">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col"> District </th>
+      <th scope="col"> Center Name </th>
+      <th scope="col"> Pin Code </th>
+      <th scope="col"> Date </th>
+      <th scope="col"> From </th>
+      <th scope="col"> To </th>
+      <th scope="col"> Dose 1 </th>
+      <th scope="col"> Dose 2 </th>
+      <th scope="col"> Fee Type </th>
+      <th scope="col"> Vaccine </th>
+      <th scope="col"> Min Age Limit </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let c of centers; index as i" >
+      <th scope="row">{{i+1}}</th>
+      <td> {{c.district_name}} </td>
+      <td> {{c.name}} </td>
+      <td> {{c.pincode}} </td>
+      <td> {{c.date}} </td>
+      <td> {{c.from}} </td>
+      <td> {{c.to}} </td>
+      <td> {{c.available_capacity_dose1}} </td>
+      <td> {{c.available_capacity_dose2}} </td>
+      <td> {{c.fee_type}} </td>
+      <td> {{c.vaccine}} </td>
+      <td> {{c.min_age_limit}} </td>
+    </tr>
+    
+  </tbody>
+</table>
