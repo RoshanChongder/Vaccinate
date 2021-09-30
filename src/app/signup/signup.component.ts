@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup , FormBuilder , FormControl, Validators } from '@angular/forms';
+import { UserServiceService } from './user-service.service'
 
 @Component({
   selector: 'app-signup',
@@ -9,8 +10,11 @@ import { FormGroup , FormBuilder , FormControl, Validators } from '@angular/form
 export class SignupComponent implements OnInit {
 
   regForm : FormGroup ;
+  success : boolean = false ;
+  failure : boolean = false ;
+  message : string = "" ;
 
-  constructor( private formBuilder : FormBuilder ) { 
+  constructor( private formBuilder : FormBuilder , private userService : UserServiceService ) { 
 
     this.regForm = formBuilder.group({
       firstName : [ '' , Validators.required ] , 
@@ -27,9 +31,42 @@ export class SignupComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
+  
   postDate(){
-    console.log( this.regForm );
+    
+    console.log("Inside the post data");
+    console.log( this.regForm.controls.firstName.value );
+    
+    
+    let obj = {
+
+      "name" : {
+        "firstName" : this.regForm.controls.firstName.value , 
+        "lastName"  : this.regForm.controls.lastName.value 
+      } , 
+      "passWord"    : this.regForm.controls.passWord.value , 
+      "gender"      : this.regForm.controls.gender.value   , 
+      "emailId"     : this.regForm.controls.emailId.value  ,
+      "phoneNo"     : this.regForm.controls.phoneNo.value  , 
+      "dateOfBirth" : this.regForm.controls.dateOfBirth.value
+    }
+
+    console.log( obj );
+
+    this.userService.signUp( obj ).subscribe(
+      ( response ) => {
+        console.log( response );
+        this.success = true ; 
+        this.failure = false;
+        this.message = response.message ;
+      } , ( err ) => {
+        console.log("Error occured while loggin in.");
+        console.log(err);
+        this.failure = true ;
+        this.success = false ;
+        this.message = err;
+      }
+    );
     
   }
 
