@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup , FormBuilder , FormControl, Validators } from '@angular/forms';
 import { UserServiceService } from './user-service.service'
-
+import { Router } from '@angular/router'
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
@@ -14,7 +14,7 @@ export class SignupComponent implements OnInit {
   failure : boolean = false ;
   message : string = "" ;
 
-  constructor( private formBuilder : FormBuilder , private userService : UserServiceService ) { 
+  constructor( private router : Router , private formBuilder : FormBuilder , private userService : UserServiceService ) { 
 
     this.regForm = formBuilder.group({
       firstName : [ '' , Validators.required ] , 
@@ -69,6 +69,8 @@ export class SignupComponent implements OnInit {
     );
     
   }
+
+  toLogin(){ this.router.navigate(['/login']); }
 
 }
 

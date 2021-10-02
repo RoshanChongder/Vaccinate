@@ -1,0 +1,41 @@
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<div class="wrapper fadeInDown">
+  <div id="formContent">
+    <!-- Tabs Titles -->
+
+    <!-- Icon -->
+    <div class="fadeIn first">
+      <img src="../../assets/icons/COVID-icon-vaccine.svg" id="icon" alt="User Icon" />
+    </div>
+
+
+    <form [formGroup]="loginForm" (ngSubmit)="login()">
+      <input type="text" id="login" class="fadeIn second" name="login" placeholder="Enter email id" formControlName ="id" />
+      <div class="errMSG" *ngIf="loginForm.controls.id.errors && loginForm.controls.id.touched" >  
+        <small *ngIf="loginForm.controls.id.errors.required" > required field </small>
+      </div>
+
+      <input type="text" id="password" class="fadeIn third" name="login" placeholder="password" formControlName="passWord" />
+      <div class="errMSG" *ngIf="loginForm.controls.passWord.errors && loginForm.controls.passWord.touched" >  
+        <small *ngIf="loginForm.controls.passWord.errors.required" > required field </small>
+        <small *ngIf="loginForm.controls.passWord.errors.minlength" > min 8 characters required </small>
+      </div>
+      
+      <input [disabled]="!loginForm.valid" type="submit" class="fadeIn fourth" value="Log In">
+      <div class="errMSG" *ngIf=" errMsg!='' ">
+        <p> Wrong Credentials ! </p>
+      </div>
+    
+    </form>
+
+    <!-- Remind Passowrd -->
+    <div id="formFooter">
+      <a class="underlineHover" [routerLink]='["/signup"]' target="self" >Don't have an account?</a>
+    </div>
+
+  </div>
+</div>
