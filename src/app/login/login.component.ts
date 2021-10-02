@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit , EventEmitter , Output } from '@angular/core';
 import { FormGroup , FormControl , FormBuilder, Validators } from '@angular/forms';
 import { LoginServiceService } from './login-service.service';
-import { Router } from '@angular/router'
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -9,10 +10,12 @@ import { Router } from '@angular/router'
 })
 export class LoginComponent implements OnInit {
 
+  loggedin = new EventEmitter(); 
   loginForm : FormGroup ;
   errMsg : string = '' ;
 
   constructor( private router : Router , private formBuilder : FormBuilder , private loginService : LoginServiceService ) { 
+
       this.loginForm = formBuilder.group({
         id : ['' , Validators.required ] , 
         passWord : [ '' , [ Validators.required , Validators.minLength(8) ] ]
@@ -34,8 +37,13 @@ export class LoginComponent implements OnInit {
       ( response ) => {
         console.log("Response came from the server");
         console.log(response);
-        console.log("Login successful");
-        this.router.navigate(['/slot']);
+        if ( response.status ==  true ){
+          console.log("Login successful");
+          this.loggedin.emit();   // let the parent know that te login was successful
+          setTimeout( ()=> this.router.navigate(['/slot']) , 1000 ) ;
+        }else {
+          console.log("login failed");
+        }
       } , ( error ) => {
         console.log("Error occured while logging in."); 
         this.errMsg = error.message ;
