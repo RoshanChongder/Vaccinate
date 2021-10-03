@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router'
+import { Router } from '@angular/router';
+import { StatService } from './stat.service';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -7,7 +8,25 @@ import { Router } from '@angular/router'
 })
 export class HomeComponent implements OnInit {
 
-  constructor( private router : Router ) { }
+  caseStat : any ;
+  showStat : boolean = false ;
+
+  constructor( private statService : StatService , private router : Router ) { 
+      this.statService.getStat().subscribe(
+        ( response ) => {
+          this.caseStat = response ;
+          this.showStat = true ;
+          console.log( response , "Country" , response.country , 
+          "Total Cases" , response.cases ,
+          "Today Cases" , response.todayCases , 
+          "Today death" , response.deaths ,
+          "Population" , response.population , 
+          "recovered" , response.recovered ,
+          "Total test" , response.tests ,
+          "recovered" , response.recovered );
+        }
+      );  
+  }
 
   ngOnInit(): void {
   }

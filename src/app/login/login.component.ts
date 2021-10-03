@@ -13,6 +13,7 @@ export class LoginComponent implements OnInit {
   loggedin = new EventEmitter(); 
   loginForm : FormGroup ;
   errMsg : string = '' ;
+  showLogOut : boolean = false; 
 
   constructor( private router : Router , private formBuilder : FormBuilder , private loginService : LoginServiceService ) { 
 
@@ -39,6 +40,7 @@ export class LoginComponent implements OnInit {
         console.log(response);
         if ( response.status ==  true ){
           console.log("Login successful");
+          this.showLogOut = true;
           this.loggedin.emit();   // let the parent know that te login was successful
           setTimeout( ()=> this.router.navigate(['/slot']) , 1000 ) ;
         }else {

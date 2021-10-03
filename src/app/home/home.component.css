@@ -7,6 +7,10 @@
     background-position : center ;
 }
 
+small{
+    font-size: 15px;
+}
+
 .content{
     width: 100%;
     position: absolute;
@@ -14,6 +18,13 @@
     transform: translateY(-50%);
     text-align: center;
     color:white;
+}
+
+stat{
+    width: 100%;
+    position: relative;
+    align-items: center;
+    text-align: center;
 }
 
 .content h1 {

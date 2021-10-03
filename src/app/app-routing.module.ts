@@ -11,7 +11,7 @@ const routes: Routes = [
   { path : "signup" , component : SignupComponent } , 
   { path : "slot"   , component : FindSlotComponent , canActivate :[ LoginGuardService] } ,     // apply route guard
   { path : "login"  , component : LoginComponent } , 
-  { path : "**"     , redirectTo : 'login' }
+  { path : "**"     , redirectTo : 'home' }
 ];
 
 @NgModule({

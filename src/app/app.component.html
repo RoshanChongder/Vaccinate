@@ -25,9 +25,12 @@
         </li>
         
       </ul>
-      <form class="d-flex">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Search</button>
+      <form class="d-flex" *ngIf="state">
+        <button class="btn btn-outline-success" type="submit" (click)="logOut()">LogOut</button>
+      </form>
+      <form class="d-flex" *ngIf="!state">
+        <button class="btn btn-outline-success" type="submit" (click)="findslot()">Find Slot</button> &nbsp; &nbsp;
+        <button class="btn btn-outline-success" type="submit" (click)="joinus()">Join Us</button>
       </form>
     </div>
   </div>
