@@ -15,7 +15,9 @@ export class UserServiceService {
 
     let header = new HttpHeaders({ 'Content-Type': 'application/json' });
     
-    return this.http.post<any>( "http://localhost:3000/registration" , obj ,
+    //  http://localhost:3000/ 
+    
+    return this.http.post<any>( "https://vacinate.herokuapp.com/registration" , obj ,
     { headers : header }).pipe(
         catchError( this.handleError )
     ) ;

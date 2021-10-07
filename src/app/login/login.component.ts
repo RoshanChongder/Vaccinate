@@ -27,27 +27,27 @@ export class LoginComponent implements OnInit {
   }
 
   login(){
-    console.log( this.loginForm.value);
+    //console.log( this.loginForm.value);
     let obj : any = {
       passWord : this.loginForm.controls.passWord.value , 
       emailId  : this.loginForm.controls.id.value 
     }
 
-    console.log( obj );
+    //console.log( obj );
     this.loginService.singIn( obj ).subscribe(
       ( response ) => {
-        console.log("Response came from the server");
-        console.log(response);
+        //console.log("Response came from the server");
+        //console.log(response);
         if ( response.status ==  true ){
-          console.log("Login successful");
+          //console.log("Login successful");
           this.showLogOut = true;
           this.loggedin.emit();   // let the parent know that te login was successful
           setTimeout( ()=> this.router.navigate(['/slot']) , 1000 ) ;
         }else {
-          console.log("login failed");
+          //console.log("login failed");
         }
       } , ( error ) => {
-        console.log("Error occured while logging in."); 
+        //console.log("Error occured while logging in."); 
         this.errMsg = error.message ;
       }
     );
