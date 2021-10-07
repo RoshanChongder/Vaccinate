@@ -12,7 +12,10 @@ export class FindSlotComponent implements OnInit {
   districts : any = [] ; 
   date : any ;
   centers : any[] = [] ; 
+  copyenters : any[] = [] ;
   pincode : any ; 
+  feesType : String = 'Both' ;
+  vacineType : String = 'All' ;
   
   selectedState : any ; 
   selectedDistrict : any ; 
@@ -59,7 +62,7 @@ export class FindSlotComponent implements OnInit {
     this.slotService.getSlotDetailWithPinCode( this.pincode.toString() , this.date ).subscribe(
       ( response ) => {
         console.log( response );
-        this.centers = response.sessions ; 
+        this.centers = response.sessions ; this.copyenters = this.centers ; 
         this.showTable = true ; 
         this.searchByPincode = false ;
       } , ( error ) => {
@@ -94,7 +97,7 @@ export class FindSlotComponent implements OnInit {
     this.slotService.getSlotDetailWithDistrict( this.selectedDistrict , this.date )
       .subscribe( ( response ) => {
         console.log( "Response came from the server - " , response );
-        this.centers = response.sessions ; 
+        this.centers = response.sessions ; this.copyenters = this.centers ; 
         this.showTable = true ; 
         this.showdate = this.showdist = this.showstate = false ;
       } , ( err ) => {
@@ -107,11 +110,52 @@ export class FindSlotComponent implements OnInit {
     if( this.pincode.toString().length == 6 ) this.invalidPin = false ;
     else this.invalidPin = true ;
   }
+ 
+  filterFees( type : String ){
+    console.log( "For - " , type );
+    
+    this.feesType = type ;
+    if( type == 'Both' ) this.centers = this.copyenters ; 
+    else {
+      this.centers = [] ;
+      for( let i=0 ; i< this.copyenters.length ; i++ ){
+        if( this.vacineType == 'All' ){
+          if( this.copyenters[i].fee_type == type ) 
+          this.centers.push( this.copyenters[i]);
+        }else{
+          if( this.copyenters[i].fee_type == type && this.copyenters[i].vaccine == this.vacineType ) 
+          this.centers.push( this.copyenters[i]);
+        }
+      }
+    }
+  }
 
+  filterVaccine( type : String) {
+    console.log( "For - " , type );
+
+    this.vacineType = type ;
+    if( type == 'All' ) this.centers = this.copyenters ; 
+    else {
+      this.centers = [] ;
+      if( this.feesType == 'Both'){
+        for( let i=0 ; i< this.copyenters.length ; i++ ){
+          if (this.copyenters[i].vaccine == type ) 
+          this.centers.push( this.copyenters[i]);
+        }
+      }else {
+        for( let i=0 ; i< this.copyenters.length ; i++ ){
+          if (this.copyenters[i].vaccine == type && this.copyenters[i].fee_type == this.feesType ) 
+          this.centers.push( this.copyenters[i]);
+        }
+      }  
+    }
+  }
 
   back(){
     this.showTable = false ; 
     this.showstate = true ;
     this.searchByDist = true ;
+    this.vacineType = 'All';
+    this.feesType = 'Both';
   }
 }

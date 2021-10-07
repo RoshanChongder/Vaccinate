@@ -19,7 +19,7 @@
         <small *ngIf="loginForm.controls.id.errors.required" > required field </small>
       </div>
 
-      <input type="text" id="password" class="fadeIn third" name="login" placeholder="password" formControlName="passWord" />
+      <input type="password" id="password" class="fadeIn third" name="login" placeholder="password" formControlName="passWord" />
       <div class="errMSG" *ngIf="loginForm.controls.passWord.errors && loginForm.controls.passWord.touched" >  
         <small *ngIf="loginForm.controls.passWord.errors.required" > required field </small>
         <small *ngIf="loginForm.controls.passWord.errors.minlength" > min 8 characters required </small>

@@ -9,6 +9,7 @@ import { LoginGuardService } from './login/login-guard.service';
 const routes: Routes = [
   { path : "home"   , component : HomeComponent } ,
   { path : "signup" , component : SignupComponent } , 
+  //{ path : "slot"   , component : FindSlotComponent } ,     // apply route guard
   { path : "slot"   , component : FindSlotComponent , canActivate :[ LoginGuardService] } ,     // apply route guard
   { path : "login"  , component : LoginComponent } , 
   { path : "**"     , redirectTo : 'home' }
