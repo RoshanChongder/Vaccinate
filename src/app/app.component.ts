@@ -16,8 +16,8 @@ export class AppComponent {
   }
 
   changeState( eventref : any  ) {
-    console.log("Reached in the paret component " , eventref);
-    console.log( eventref["showLogOut"] );
+    //console.log("Reached in the paret component " , eventref);
+    //console.log( eventref["showLogOut"] );
     if( eventref instanceof FindSlotComponent   ) this.state = true ;  
   }
 

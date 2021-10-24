@@ -34,8 +34,8 @@ export class SignupComponent implements OnInit {
   
   postDate(){
     
-    console.log("Inside the post data");
-    console.log( this.regForm.controls.firstName.value );
+    //console.log("Inside the post data");
+    //console.log( this.regForm.controls.firstName.value );
     
     
     let obj = {
@@ -51,17 +51,17 @@ export class SignupComponent implements OnInit {
       "dateOfBirth" : this.regForm.controls.dateOfBirth.value
     }
 
-    console.log( obj );
+    //console.log( obj );
 
     this.userService.signUp( obj ).subscribe(
       ( response ) => {
-        console.log( response );
+        //console.log( response );
         this.success = true ; 
         this.failure = false;
         this.message = response.message ;
       } , ( err ) => {
-        console.log("Error occured while loggin in.");
-        console.log(err);
+        //console.log("Error occured while loggin in.");
+        //console.log(err);
         this.failure = true ;
         this.success = false ;
         this.message = err;

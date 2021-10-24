@@ -16,14 +16,14 @@ export class HomeComponent implements OnInit {
         ( response ) => {
           this.caseStat = response ;
           this.showStat = true ;
-          console.log( response , "Country" , response.country , 
-          "Total Cases" , response.cases ,
-          "Today Cases" , response.todayCases , 
-          "Today death" , response.deaths ,
-          "Population" , response.population , 
-          "recovered" , response.recovered ,
-          "Total test" , response.tests ,
-          "recovered" , response.recovered );
+          // console.log( response , "Country" , response.country , 
+          // "Total Cases" , response.cases ,
+          // "Today Cases" , response.todayCases , 
+          // "Today death" , response.deaths ,
+          // "Population" , response.population , 
+          // "recovered" , response.recovered ,
+          // "Total test" , response.tests ,
+          // "recovered" , response.recovered );
         }
       );  
   }

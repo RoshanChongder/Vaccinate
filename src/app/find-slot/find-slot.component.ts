@@ -51,7 +51,7 @@ export class FindSlotComponent implements OnInit {
          //console.log( this.states[0] );
          this.showstate = true ;       
        } , ( error ) => {
-         console.log("Error while fetching states");
+         //console.log("Error while fetching states");
          this.states = [] ;
        }
      ) ;
@@ -61,12 +61,12 @@ export class FindSlotComponent implements OnInit {
     //console.log( this.pincode , typeof this.pincode );
     this.slotService.getSlotDetailWithPinCode( this.pincode.toString() , this.date ).subscribe(
       ( response ) => {
-        console.log( response );
+        //console.log( response );
         this.centers = response.sessions ; this.copyenters = this.centers ; 
         this.showTable = true ; 
         this.searchByPincode = false ;
       } , ( error ) => {
-        console.log("Some error oured while fetching data wrt to pincode");
+        //console.log("Some error oured while fetching data wrt to pincode");
       }
     )
     
@@ -77,15 +77,15 @@ export class FindSlotComponent implements OnInit {
 
   getDistrict( state :any ){
     this.selectedState = state ; 
-    console.log( state  , typeof state );
+    //console.log( state  , typeof state );
     this.slotService.getDistrict( state ).subscribe(
       ( response ) => {
         //console.log( response );
         this.districts = response.districts ;
-        console.log( this.districts[0] );
+        //console.log( this.districts[0] );
         this.showdist = true ;
       } , ( err ) => {
-        console.log( "Error occured while fetching" );
+        //console.log( "Error occured while fetching" );
         this.districts = [] ;
       }
     ) ;
@@ -96,13 +96,13 @@ export class FindSlotComponent implements OnInit {
     console.log( this.selectedState ,  this.selectedDistrict , this.date );
     this.slotService.getSlotDetailWithDistrict( this.selectedDistrict , this.date )
       .subscribe( ( response ) => {
-        console.log( "Response came from the server - " , response );
+        //console.log( "Response came from the server - " , response );
         this.centers = response.sessions ; this.copyenters = this.centers ; 
         this.showTable = true ; 
         this.showdate = this.showdist = this.showstate = false ;
       } , ( err ) => {
-        console.log("Some error occured while fetching slots.");
-      }  );
+        //console.log("Some error occured while fetching slots.");
+      } );
   }
 
   validatePincode()
@@ -112,7 +112,7 @@ export class FindSlotComponent implements OnInit {
   }
  
   filterFees( type : String ){
-    console.log( "For - " , type );
+    //console.log( "For - " , type );
     
     this.feesType = type ;
     if( type == 'Both' ) this.centers = this.copyenters ; 
