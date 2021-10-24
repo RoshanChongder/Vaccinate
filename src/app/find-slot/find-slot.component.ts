@@ -115,7 +115,18 @@ export class FindSlotComponent implements OnInit {
     //console.log( "For - " , type );
     
     this.feesType = type ;
-    if( type == 'Both' ) this.centers = this.copyenters ; 
+    if( type == 'Both' ){
+      if( this.vacineType == 'All' ){
+        this.centers = this.copyenters ; 
+      }else{
+        this.centers = [] ;
+        for(let i=0 ; i<this.copyenters.length;i++){
+          if( this.copyenters[i].vaccine == this.vacineType ){
+            this.centers.push(this.copyenters[i]);
+          }
+        }
+      }
+    } //this.centers = this.copyenters ; 
     else {
       this.centers = [] ;
       for( let i=0 ; i< this.copyenters.length ; i++ ){
@@ -134,7 +145,18 @@ export class FindSlotComponent implements OnInit {
     console.log( "For - " , type );
 
     this.vacineType = type ;
-    if( type == 'All' ) this.centers = this.copyenters ; 
+    if( type == 'All' ){
+      if(this.feesType == 'Both'){
+        this.centers = this.copyenters ; 
+      }else{
+        this.centers = [] ;
+        for(let i = 0 ; i<this.copyenters.length;i++){
+          if( this.copyenters[i].fee_type == this.feesType ){
+            this.centers.push(this.copyenters[i]);
+          }
+        }
+      }
+    } //this.centers = this.copyenters ; 
     else {
       this.centers = [] ;
       if( this.feesType == 'Both'){
