@@ -21,7 +21,7 @@
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" href="#" target="blank">Certificate</a>
+          <a class="nav-link" target="blank" (click)="Certificate()" >Certificate</a>
         </li>
         
       </ul>
@@ -35,4 +35,5 @@
     </div>
   </div>
 </nav>
+
 <router-outlet (activate)="changeState($event)"></router-outlet>

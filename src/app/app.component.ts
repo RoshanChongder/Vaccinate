@@ -35,6 +35,8 @@ export class AppComponent {
     this.router.navigate(['/signup']);
   }
 
+  Certificate(){
+    window.alert("This service is not avaiable yet.Please try again later")
+  }
 
-  
 }
