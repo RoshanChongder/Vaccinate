@@ -1,8 +1,11 @@
 <div class="cover">
     <div class="content">
-        <h1>Vaccinate</h1>
-        <h3> Get Vaccinated - Protect yourself and Others</h3>
-        <p>Find available vaccination slots and get your vaccination done</p>
+        <div class="container-fluid">
+            <h1>Vaccinate</h1>
+            <h4> Get Vaccinated - Protect yourself and Others</h4>
+            <p>Find available vaccination slots and get your vaccination done</p>
+        </div>
+        
         <div class="stats" *ngIf="showStat">
             <small>TODAY CASES {{ caseStat.todayCases }} : TODAY RECOVERED {{ caseStat.todayRecovered }} : TODAY DEATH {{ caseStat.todayDeaths }} </small> <br/>
             <small>TOTAL ACTIVE {{ caseStat.active }} : TOTAL RECOVERED {{ caseStat.recovered }} : TOTAL DEATH {{ caseStat.deaths }} </small>
