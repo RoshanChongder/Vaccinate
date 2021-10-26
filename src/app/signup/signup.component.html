@@ -1,26 +1,23 @@
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<!------ Include the above in your HEAD tag ---------->
-
 <div class="container register">
     <div class="row">
         <div class="col-md-3 register-left">
-            <img src="../../assets/icons/vaccine.svg" alt="" />
-            <img src="../../assets/icons/vaccine.svg" alt="" />
-            <h5> Get Your Dose In Time </h5>
-            <p>
-                <span style="font-size: 15px;">
-                    Stay Safe <br>
-                    Wear Mask <br>
-                    Wash Hands <br>
-                </span>
-            </p>
-
-            <br><br><br>
-            <button class="btnLogin" (click)="toLogin()">Login</button>
+            <img class = "img img-responsive" src="../../assets/icons/vaccine.svg" alt="" />
+            <img class = "img img-responsive" src="../../assets/icons/vaccine.svg" alt="" />
+            
+            <div class="container-fluid">
+                <h5> Get Your Dose In Time </h5>
+                <p>
+                    <span style="font-size: 15px;">
+                        Stay Safe <br>
+                        Wear Mask <br>
+                        Wash Hands <br>
+                    </span>
+                </p>
+                <button class="btnLogin" (click)="toLogin()">Login</button>
+            </div>
         </div>
-        <div class="col-md-9 register-right">
+
+        <div class="col-md-6 register-right">
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                     <h3 class="register-heading"> Register To Vaccinate </h3>
@@ -95,7 +92,7 @@
                                     
                                 </div>
                                 
-                                <input type="submit" [disabled]="!regForm.valid" class="btnRegister" value="Register" />
+                                <input type="submit" [disabled]="!regForm.valid" class="form-control" id="btnRegister" value="Register" />
                             </div>
                         </div>
                     </form>

@@ -49,8 +49,17 @@
     padding: 10%;
     margin-top: 10%;
 }
-.btnRegister{
-    float: right;
+
+#btnRegister{
+    border: none;
+    margin-top: 10px;
+    background-color: blue;
+    color: white;
+}
+
+/* #btnRegister{
+     float: right;
+    position: relative;
     margin-top: 10%;
     border: none;
     border-radius: 1.5rem;
@@ -60,12 +69,13 @@
     font-weight: 600;
     width: 50%;
     cursor: pointer;
-}
+} */
+
 .errMSG{
     color : red ;
 }
 .btnLogin{
-    margin-top: 10%;
+    margin-top: 1%;
     border: none;
     border-radius: 1.5rem;
     padding: 2%;
@@ -74,6 +84,7 @@
     font-weight: 600;
     width: 50%;
     cursor: pointer;
+    margin-bottom: 10px;
 }
 .register .nav-tabs{
     margin-top: 3%;

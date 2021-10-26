@@ -5,11 +5,14 @@
             <h4> Get Vaccinated - Protect yourself and Others</h4>
             <p>Find available vaccination slots and get your vaccination done</p>
         </div>
-        
-        <div class="stats" *ngIf="showStat">
-            <small>TODAY CASES {{ caseStat.todayCases }} : TODAY RECOVERED {{ caseStat.todayRecovered }} : TODAY DEATH {{ caseStat.todayDeaths }} </small> <br/>
-            <small>TOTAL ACTIVE {{ caseStat.active }} : TOTAL RECOVERED {{ caseStat.recovered }} : TOTAL DEATH {{ caseStat.deaths }} </small>
+    
+        <div class="container-fluid">
+            <div class="stats" *ngIf="showStat">
+                <small>TODAY CASES {{ caseStat.todayCases }} : TODAY RECOVERED {{ caseStat.todayRecovered }} : TODAY DEATH {{ caseStat.todayDeaths }} </small> <br/>
+                <small>TOTAL ACTIVE {{ caseStat.active }} : TOTAL RECOVERED {{ caseStat.recovered }} : TOTAL DEATH {{ caseStat.deaths }} </small>
+            </div>
         </div>
+        
 
         <div>
             <button type="button" (click)="toLogin()"><span></span>LogIn</button>
