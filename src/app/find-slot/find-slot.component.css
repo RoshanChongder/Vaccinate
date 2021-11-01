@@ -2,17 +2,16 @@
   display: flex;
   align-items: center;
   flex-direction: column; 
-  justify-content: center;
+  justify-content: space-evenly;
   width: 100%;
   min-height: 50%;
   padding: 10px;
 }
 
 .outer{
-  padding-top : 20px ;
-  padding-bottom: 5px ;
-  margin-left: 200px;
-  margin-right: 200px;
+  padding : 10px;
+  margin-left: 5%;
+  margin-right: 5%;
   margin-top: 20px;
   margin-bottom: 20px;
   border-radius: 10px 10px 10px 10px;
@@ -46,4 +45,8 @@
 
 .filters{
   margin: 20px;
+}
+
+#drop{
+  padding: 10px;
 }

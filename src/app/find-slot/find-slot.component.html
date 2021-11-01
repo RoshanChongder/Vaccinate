@@ -9,7 +9,7 @@
       
       <div class="wrapper" id="dd">
       
-        <select class="dropdown form-select-lg mb-3" #state (change)="getDistrict(state.value)">
+        <select class="dropdown mb-3" #state (change)="getDistrict(state.value)" id="drop" >
           <option selected> &nbsp;&nbsp; State &nbsp;&nbsp; </option>
           <option *ngFor="let state of states" [value]="state.state_id"> {{ state.state_name }}</option>
         </select>
@@ -26,7 +26,7 @@
     
       <div class="wrapper">
     
-        <select class="dropdown form-select-lg mb-3" #dist (change)="selectedDistrict=dist.value;showdate=true">
+        <select class="dropdown mb-3" #dist (change)="selectedDistrict=dist.value;showdate=true" id="drop" >
           <option selected> &nbsp;&nbsp; District &nbsp;&nbsp; </option>
           <option *ngFor="let dist of districts" [value]="dist.district_id">{{ dist.district_name }}</option>
         </select>
@@ -42,8 +42,8 @@
     <div class="container-fluid">
       
       <div id="date-picker-example" class="wrapper">
-        <input class="dropdown form-select-lg mb-3" type="text" placeholder="Date" onfocus="(this.type='date')" #Date
-          (change)="date=Date.value" />
+        <input class="dropdown mb-3" type="text" placeholder="Date" onfocus="(this.type='date')" #Date
+          (change)="date=Date.value" id="drop" >
       </div>
     
     </div>
@@ -90,36 +90,44 @@
 <!-- Code to show the fetched slots using a table  -->
 <button type="button" (click)="back()" *ngIf="showTable" class="btn btn-outline-primary"> Back </button>
 <br/>
+
 <div *ngIf="showTable" clss="filters" style="margin-left: 20px;" >
- 
-  <span style="margin-right: 10px;" > Fess Type &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :  </span>
 
-  <input (click)="filterFees('Both')" class="form-check-input" type="radio" name="feeType" checked="checked" /> &nbsp;
-  <label class="form-check-label" for="flexRadioDefault1"> BOTH </label> &nbsp; &nbsp;
+  <div class="container-fluid">
+    <span style="margin-right: 10px;" > Fees Type &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; :  </span>
 
-  <input (click)="filterFees('Paid')" class="form-check-input" type="radio" name="feeType" /> &nbsp;
-  <label class="form-check-label" for="flexRadioDefault1"> PAID </label> &nbsp; &nbsp;
-
-  <input (click)="filterFees('Free')" class="form-check-input" type="radio" name="feeType" /> &nbsp;
-  <label class="form-check-label" for="flexRadioDefault1"> FREE </label> &nbsp; &nbsp;
+    <input (click)="filterFees('Both')" class="form-check-input" type="radio" name="feeType" checked="checked" /> &nbsp;
+    <label class="form-check-label" for="flexRadioDefault1"> BOTH </label> &nbsp; &nbsp;
+  
+    <input (click)="filterFees('Paid')" class="form-check-input" type="radio" name="feeType" /> &nbsp;
+    <label class="form-check-label" for="flexRadioDefault1"> PAID </label> &nbsp; &nbsp;
+  
+    <input (click)="filterFees('Free')" class="form-check-input" type="radio" name="feeType" /> &nbsp;
+    <label class="form-check-label" for="flexRadioDefault1"> FREE </label> &nbsp; &nbsp;  
+  </div>
 
 </div> <br/>
+
 <div *ngIf="showTable" clss="filters" style="margin-left: 20px;" >
-  <span style="margin-right: 10px;" > Vaccine Type &nbsp; :  </span>
+  
+  <div class="container-fluid">
+    <span style="margin-right: 10px;" > Vaccine Type &nbsp; :  </span>
 
-  <input (click)="filterVaccine('All')" class="form-check-input" type="radio" name="vacType" checked="checked" /> &nbsp;
-  <label class="form-check-label" for="flexRadioDefault1"> All </label> &nbsp; &nbsp;
+    <input (click)="filterVaccine('All')" class="form-check-input" type="radio" name="vacType" checked="checked" /> &nbsp;
+    <label class="form-check-label" for="flexRadioDefault1"> All </label> &nbsp; &nbsp;
 
-  <input (click)="filterVaccine('COVAXIN')" class="form-check-input" type="radio" name="vacType" /> &nbsp;
-  <label class="form-check-label" for="flexRadioDefault1"> COVAXIN </label> &nbsp; &nbsp;
+    <input (click)="filterVaccine('COVAXIN')" class="form-check-input" type="radio" name="vacType" /> &nbsp;
+    <label class="form-check-label" for="flexRadioDefault1"> COVAXIN </label> &nbsp; &nbsp;
 
-  <input (click)="filterVaccine('COVISHIELD')" class="form-check-input" type="radio" name="vacType" /> &nbsp;
-  <label class="form-check-label" for="flexRadioDefault1"> COVISHIELD </label> &nbsp; &nbsp;
+    <input (click)="filterVaccine('COVISHIELD')" class="form-check-input" type="radio" name="vacType" /> &nbsp;
+    <label class="form-check-label" for="flexRadioDefault1"> COVISHIELD </label> &nbsp; &nbsp;
 
-  <input (click)="filterVaccine('SPUTNIK V')" class="form-check-input" type="radio" name="vacType" /> &nbsp;
-  <label class="form-check-label" for="flexRadioDefault1"> SPUTNIK V </label> &nbsp; &nbsp;
-
+    <input (click)="filterVaccine('SPUTNIK V')" class="form-check-input" type="radio" name="vacType" /> &nbsp;
+    <label class="form-check-label" for="flexRadioDefault1"> SPUTNIK V </label> &nbsp; &nbsp;
+  </div>
+  
 </div>
+
 <br/>
 <div class="table-responsive">
   <table class="table table-striped" *ngIf="showTable">
