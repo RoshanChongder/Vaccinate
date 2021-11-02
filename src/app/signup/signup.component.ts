@@ -70,7 +70,7 @@ export class SignupComponent implements OnInit {
     
   }
 
-  toLogin(){ this.router.navigate(['/login']); }
+  toLogin(){ this.router.navigate(['/user/login']); }
 
 }
 

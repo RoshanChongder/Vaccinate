@@ -28,11 +28,11 @@ export class AppComponent {
   }
 
   findslot(){
-    this.router.navigate(['/login']);
+    this.router.navigate(['/user/login']);
   }
 
   joinus(){
-    this.router.navigate(['/signup']);
+    this.router.navigate(['/user/signup']);
   }
 
   Certificate(){

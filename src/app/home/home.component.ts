@@ -32,11 +32,11 @@ export class HomeComponent implements OnInit {
   }
 
   toLogin(){
-    this.router.navigate(['/login']);
+    this.router.navigate(['/user/login']);
   }
 
   toSignup(){
-    this.router.navigate(['/signup']);
+    this.router.navigate(['/user/signup']);
   }
 
 }

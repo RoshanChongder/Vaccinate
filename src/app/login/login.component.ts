@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
           //console.log("Login successful");
           this.showLogOut = true;
           this.loggedin.emit();   // let the parent know that te login was successful
-          setTimeout( ()=> this.router.navigate(['/slot']) , 1000 ) ;
+          setTimeout( ()=> this.router.navigate(['/find/slot']) , 1000 ) ;
         }else {
           //console.log("login failed");
         }
