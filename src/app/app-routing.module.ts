@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
-//import { FindSlotComponent } from './find-slot/find-slot.component';
-//import { LoginGuardService } from './login/login-guard.service';
 
 const routes: Routes = [
 
@@ -18,7 +16,12 @@ const routes: Routes = [
     loadChildren : () => import('./slot/slot.module').then( m => m.SlotModule )
   } ,
 
-  { path : "**"     , redirectTo : 'home' }
+  {
+    path : "statistics" , 
+    loadChildren : () => import('./map/map.module').then( m => m.MapModule )
+  } ,
+
+  { path : "**" , redirectTo : 'home' }
 
 ];
 @NgModule({

@@ -6,16 +6,14 @@ import { catchError } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
-export class StatService {
+export class DataServiceUNService {
 
   constructor( private http : HttpClient ) { }
 
-  getStat( ) : Observable<any> {
-    
-    return this.http.get<any>( "https://corona.lmao.ninja/v2/countries?yesterday&sort")
-    .pipe(
-        catchError( this.handleError )
-    );
+  // this api is provided by the united nation https://covid-19-data.unstatshub.org/datasets/cases-country/api
+  getCovidDate() : Observable<any> {
+    return this.http.get<any>("https://services1.arcgis.com/0MSEUqKaxRlEPj5g/arcgis/rest/services/ncov_cases2_v1/FeatureServer/2/query?where=1%3D1&outFields=*&outSR=4326&f=json")
+    .pipe( catchError( this.handleError ) );
   }
   
   private handleError(err: HttpErrorResponse) {
@@ -26,7 +24,7 @@ export class StatService {
     } else {
       console.log("Server side error occured - ", err.status);
       console.log(err);
-      msg = err.error.message;
+      msg = err.status;
     }
 
     return throwError(msg);

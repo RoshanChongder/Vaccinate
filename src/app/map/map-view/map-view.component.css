@@ -1,0 +1,97 @@
+
+select.btn-mini {
+    height: auto;
+    line-height: 14px;
+}
+
+/* this is optional (see below) */
+select.btn {
+    -webkit-appearance: button;
+       -moz-appearance: button;
+            appearance: button;
+    padding-right: 16px;
+}
+
+select.btn-mini + .caret {
+    margin-left: -20px;
+    margin-top: 9px;
+}
+
+
+#country-dropdown{
+    padding: 2%;
+    float: left;
+}
+
+select{
+    text-align: center;
+}
+
+
+* {
+    box-sizing: border-box;
+  }
+  
+  body {
+    color: #404040;
+    font: 400 15px/22px 'Source Sans Pro', 'Helvetica Neue', sans-serif;
+    margin: 0;
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1 {
+    font-size: 22px;
+    margin: 0;
+    font-weight: 400;
+    line-height: 20px;
+    padding: 20px 2px;
+  }
+
+  a {
+    color: #404040;
+    text-decoration: none;
+  }
+
+  a:hover {
+    color: #101010;
+  }
+
+
+  .sidebar {
+    position: absolute;
+    width: 35.3333%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    border-right: 1px solid rgba(0, 0, 0, 0.25);
+  }
+
+  .map {
+    position: absolute;
+    left: 35.3333%;
+    width: 100%;
+    top: 0;
+    bottom: 0;
+  }
+
+.list-group{
+  overflow: scroll;
+  max-height: 100%; 
+  background-color: lightblue;
+  /* font-weight: bold; */
+}
+
+h4{
+  text-align: center;
+}
+
+.country {
+  border: 0.5px dashed black;
+}
+
+#selected {
+  background-color: cyan;
+  border: 1px solid black;
+}
