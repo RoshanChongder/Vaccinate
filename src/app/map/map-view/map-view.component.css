@@ -1,4 +1,3 @@
-
 select.btn-mini {
     height: auto;
     line-height: 14px;
@@ -94,4 +93,15 @@ h4{
 #selected {
   background-color: cyan;
   border: 1px solid black;
+}
+
+
+:host ::ng-deep div.mapboxgl-popup-content{
+  padding: 3px;
+  background-color: black;
+  color: wheat;
+  letter-spacing: 1px;
+  text-align: center;
+  font-size: 10px;
+  font-family: Arial, Helvetica, sans-serif;
 }

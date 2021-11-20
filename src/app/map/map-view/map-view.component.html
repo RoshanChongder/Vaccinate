@@ -2,25 +2,24 @@
 <link href="https://api.mapbox.com/mapbox-gl-js/v2.5.1/mapbox-gl.css" rel="stylesheet">
 <script src="https://api.mapbox.com/mapbox-gl-js/v2.5.1/mapbox-gl.js"></script>
 
-
-<div class='sidebar'>
-
+<section class="map_box_container">
+  <div class='sidebar'>
     <div class="card">
       <div class="card-body">
         <h5> Countries </h5>
       </div>
     </div>
-  <ul class="list-group">
-    <div id='listings' class='listings'>
-      <li *ngFor="let country of data;index as i">
-        <div class="card country">
-          <div class="card-body" id={{i}} (click)="locate(country,i)">
-            {{ country.attributes.Country_Region }}
+    <ul class="list-group">
+      <div id='listings' class='listings'>
+        <li *ngFor="let country of data;index as i">
+          <div class="card country">
+            <div class="card-body" id={{i}} (click)="locate(country,i)">
+              {{ country.attributes.Country_Region }}
+            </div>
           </div>
-        </div>
-      </li>
-    </div>
-  </ul>
-</div>
-
-<div id="map" class="map"></div>
+        </li>
+      </div>
+    </ul>
+  </div>
+  <div id="map" class="map"></div>
+</section>

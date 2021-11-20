@@ -55,6 +55,10 @@ export class MapViewComponent implements OnInit {
 
 }
 
+/*
+*  Method that will load the map and the layers to it  
+*/
+
 function loadmap() : mapboxgl.Map {
 
   // need to load the vetor tile set here 
@@ -129,13 +133,19 @@ function loadmap() : mapboxgl.Map {
 
       map.on('mouseleave' , 'undisputed country boundary fill' , ()=> {
         map.getCanvas().style.cursor = '' ;
-      })
+      });
+
+      map.resize();
 
   });
-
   return map;
 
 }
+
+/*
+*   Method that adds adds a marker and flys to the that location where the 
+*   marker is added and then returns the add marker 
+*/
 
 function addMarker( location : any , map : mapboxgl.Map | undefined ) : mapboxgl.Marker {
     
@@ -149,14 +159,39 @@ function addMarker( location : any , map : mapboxgl.Map | undefined ) : mapboxgl
     marker.addTo( map ) ; 
     map.flyTo( {
       center : loc ,
-      zoom : 5 , 
+      zoom : 4 , 
       speed : 0.3 
     }) ;
   }
-  
-
+  addPopUp( location , marker , map ) ;
   return marker ;
 }
+
+/*
+* This method will add a popup to a marker and return the marker 
+*/
+
+function addPopUp( data : any , marker : mapboxgl.Marker ,  map : mapboxgl.Map | undefined ) : mapboxgl.Marker {
+
+  let content =  "<div class='content container'>" + 
+    "Confirmed Cases : " +  data.attributes.Confirmed.toFixed(2)      + "<br>" +
+    "Total Deaths : "    +  data.attributes.Deaths.toFixed(2)         + "<br>" + 
+    "Mortality Rate : "  +  data.attributes.Mortality_Rate.toFixed(2) + "<br>" +
+    "Incident Rate : "   +  data.attributes.Incident_Rate.toFixed(2)  + "<br>" +
+    "</div>" ;
+  console.log( content );
+  if( map != undefined ) {
+    let popup = new mapboxgl.Popup().setHTML(content).addTo(map);
+    marker.setPopup(popup);
+  }
+  
+  return marker ;
+}
+
+
+/*
+*  Method to remove a makrer from a map 
+*/
 
 function removeMarker( marker : mapboxgl.Marker | undefined ){
   console.log("Removing marker - " , marker );
