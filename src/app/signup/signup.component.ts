@@ -9,69 +9,56 @@ import { Router } from '@angular/router'
 })
 export class SignupComponent implements OnInit {
 
-  regForm : FormGroup ;
-  success : boolean = false ;
-  failure : boolean = false ;
-  message : string = "" ;
+  regForm: FormGroup ;
+  success: boolean = false ;
+  failure: boolean = false ;
+  message: string = "" ;
 
-  constructor( private router : Router , private formBuilder : FormBuilder , private userService : UserServiceService ) { 
+  constructor( private router: Router , private formBuilder: FormBuilder , private userService: UserServiceService ) { 
 
     this.regForm = formBuilder.group({
-      firstName : [ '' , Validators.required ] , 
-      lastName  : [ '' , Validators.required ] , 
-      passWord  : [ '' , [ Validators.minLength(8) , Validators.required ] ] ,
-      confirmPassWord : [ '' , [ Validators.required ] ] , 
-      gender    : [ '' , Validators.required ] , 
-      emailId   : [ '' , [ Validators.required ] ] ,
-      phoneNo   : [ '' , [ Validators.required , validatePhone] ] , 
-      dateOfBirth : [ '' , [ Validators.required ] ] 
-    }) ;
-  
+      firstName: [ '' , Validators.required ], 
+      lastName: [ '' , Validators.required ], 
+      passWord: [ '' , [ Validators.minLength(8) , Validators.required ] ],
+      confirmPassWord: [ '' , [ Validators.required ] ],
+      gender: [ '' , Validators.required ],
+      emailId: [ '' , [ Validators.required ] ],
+      phoneNo: [ '' , [ Validators.required , validatePhone] ],
+      dateOfBirth: [ '' , [ Validators.required ] ] 
+    });
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
   
   postDate(){
     
-    //console.log("Inside the post data");
-    //console.log( this.regForm.controls.firstName.value );
-    
-    
     let obj = {
 
-      "name" : {
-        "firstName" : this.regForm.controls.firstName.value , 
-        "lastName"  : this.regForm.controls.lastName.value 
+      "name": {
+        "firstName": this.regForm.controls.firstName.value , 
+        "lastName": this.regForm.controls.lastName.value 
       } , 
-      "passWord"    : this.regForm.controls.passWord.value , 
-      "gender"      : this.regForm.controls.gender.value   , 
-      "emailId"     : this.regForm.controls.emailId.value  ,
-      "phoneNo"     : this.regForm.controls.phoneNo.value  , 
-      "dateOfBirth" : this.regForm.controls.dateOfBirth.value
+      "passWord": this.regForm.controls.passWord.value , 
+      "gender": this.regForm.controls.gender.value   , 
+      "emailId": this.regForm.controls.emailId.value  ,
+      "phoneNo": this.regForm.controls.phoneNo.value  , 
+      "dateOfBirth": this.regForm.controls.dateOfBirth.value
     }
 
-    //console.log( obj );
-
     this.userService.signUp( obj ).subscribe(
-      ( response ) => {
-        //console.log( response );
+      (response) => {
         this.success = true ; 
         this.failure = false;
         this.message = response.message ;
-      } , ( err ) => {
-        //console.log("Error occured while loggin in.");
-        //console.log(err);
+      },
+      (err) => {
         this.failure = true ;
         this.success = false ;
         this.message = err;
       }
     );
-    
   }
-
   toLogin(){ this.router.navigate(['/user/login']); }
-
 }
 
 function validatePhone( phone : FormControl )
@@ -79,7 +66,7 @@ function validatePhone( phone : FormControl )
     let pattern =  /^\d{10}$/ ; 
     return phone.value.match( pattern ) ? null : {
         InvalidPhone : {
-          message : "Invalid Phone number"
+          message: "Invalid Phone number"
         }
-    } ;
+    };
 }

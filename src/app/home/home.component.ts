@@ -8,28 +8,19 @@ import { StatService } from './stat.service';
 })
 export class HomeComponent implements OnInit {
 
-  caseStat : any ;
-  showStat : boolean = false ;
+  caseStat: any ;
+  showStat: boolean = false ;
 
-  constructor( private statService : StatService , private router : Router ) { 
+  constructor( private statService: StatService , private router: Router) { 
       this.statService.getStat().subscribe(
         ( response ) => {
           this.caseStat = response ;
           this.showStat = true ;
-          // console.log( response , "Country" , response.country , 
-          // "Total Cases" , response.cases ,
-          // "Today Cases" , response.todayCases , 
-          // "Today death" , response.deaths ,
-          // "Population" , response.population , 
-          // "recovered" , response.recovered ,
-          // "Total test" , response.tests ,
-          // "recovered" , response.recovered );
         }
       );  
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   toLogin(){
     this.router.navigate(['/user/login']);

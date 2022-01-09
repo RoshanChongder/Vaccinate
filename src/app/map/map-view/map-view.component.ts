@@ -10,58 +10,64 @@ import { DataServiceUNService } from '../data-service-un.service';
 })
 export class MapViewComponent implements OnInit {
 
-  data : any = undefined ;
-  map : mapboxgl.Map | undefined ; 
-  marker : mapboxgl.Marker | undefined ;
-  prevSelected : number | undefined ;
+  data: any = undefined ;
+  map: mapboxgl.Map | undefined ; 
+  marker: mapboxgl.Marker | undefined ;
+  prevSelected: number | undefined ;
 
-  constructor( private dataService : DataServiceUNService ) { }
+  constructor( private dataService: DataServiceUNService ) { }
+
+  /*
+  * On load of the component, first load the map using the loadMap method.
+  * Then call the dataservice to get covidData from the specefic end point and 
+  * storing the data in the this.data local variable to use it place marker and show popup
+  */
 
   ngOnInit(): void {
-    
     this.map = loadmap();
-
-    // calling for service - testing purpose 
     this.dataService.getCovidDate().subscribe( (response) =>{
-      console.log("Data Received " , response.features );
       this.data = response.features ;
     } , ( error ) => {
-      console.log("Some error occured");
+      // log the error in some file 
     } ) ;
   }
 
-  // method to locat a country on the map using a marker 
-  locate( country : any , id : number ) {
-    console.log( "Locate - " , country , id , typeof id );
+  /*
+  * This method mainly locates a country and places a marker in the center pos of that country 
+  * It takes the name of the country and the id associated with the country name so that it can 
+  * highlight the country name in the left nav and palce a marker on that country in the map
+  */
+
+  locate(country: any, id: number) {
     
-    let element : HTMLElement | null = document.getElementById( "selected" ) ;
-    if( this.prevSelected != undefined && element != null ){
-      element.id = this.prevSelected.toString() ; 
+    let element: HTMLElement | null = document.getElementById( "selected" );
+    if(this.prevSelected != undefined && element != null) {
+      element.id = this.prevSelected.toString();
     }
 
     this.prevSelected = id ; 
-    element = document.getElementById( id.toString() ) ;
-    if( element ){
-      element.id = "selected" ;
+    element = document.getElementById( id.toString() );
+    if(element){
+      element.id = "selected";
     }
     
     // first to remove any previous marker 
-    removeMarker( this.marker ) ;
+    removeMarker(this.marker);
 
     // then to add a new marker in the selected area 
-    this.marker = addMarker( country , this.map ) ;
+    this.marker = addMarker(country, this.map);
 
   }
-
 }
 
 /*
-*  Method that will load the map and the layers to it  
+*  This method will load the map on the load of the component 
+*  It creates a new map instance using MapBox GL and adds some layers to the map 
+*  It also adds some events like mouse hover 
 */
 
-function loadmap() : mapboxgl.Map {
+function loadmap(): mapboxgl.Map {
 
-  // need to load the vetor tile set here 
   const map = new mapboxgl.Map({
     accessToken : 'pk.eyJ1Ijoicm9zaGFuMTk5NyIsImEiOiJja3ZkbnlxbGgydXp4MzNva3kyZnk4amU2In0.EGtcImaxj-mUEnlhgjAYrg' ,
     container: 'map',
@@ -72,16 +78,13 @@ function loadmap() : mapboxgl.Map {
     pitch : 0 
   });
 
-  // on loading of the map do the following 
   map.on('load' , () => {
-      
-    //on loading of the map , add the vector tileset 
+
       map.addSource('country-boundaries' , {
         type : 'vector' , 
         url  : 'mapbox://mapbox.country-boundaries-v1'
       });
 
-      //adding layer 1
       map.addLayer(
         {
           "id": "undisputed country boundary fill",
@@ -103,7 +106,6 @@ function loadmap() : mapboxgl.Map {
         }
       );
 
-      //adding layer 2 
       map.addLayer({
         "id": "disputed area boundary fill",
         "source": "country-boundaries",
@@ -123,18 +125,6 @@ function loadmap() : mapboxgl.Map {
         }
       });
 
-      // on mouse hover over a country , it will log it's name 
-      map.on('mousemove' , 'undisputed country boundary fill' , (e)=>{
-          map.getCanvas().style.cursor = 'pointer';
-          if( e.features?.length !=undefined && e.features?.length > 0 ) {
-            console.log( e?.features[0].properties?.name_en );          
-          }
-      });
-
-      map.on('mouseleave' , 'undisputed country boundary fill' , ()=> {
-        map.getCanvas().style.cursor = '' ;
-      });
-
       map.resize();
 
   });
@@ -143,35 +133,42 @@ function loadmap() : mapboxgl.Map {
 }
 
 /*
-*   Method that adds adds a marker and flys to the that location where the 
-*   marker is added and then returns the add marker 
+*  This method mainly adds a marke to given location and flies to that location    
+*  It takes the location as the first parameter and the map as the second parameter 
+*  where the marker needs to be added.
+*  After placng a marker, it flies to that location and creates a popup to show the stats about that 
+*  country.
 */
 
-function addMarker( location : any , map : mapboxgl.Map | undefined ) : mapboxgl.Marker {
+function addMarker( location: any , map: mapboxgl.Map | undefined ): mapboxgl.Marker {
     
-  let loc : [ number , number ] = [ location.geometry.x , location.geometry.y  ] ;
-  let marker : mapboxgl.Marker = new mapboxgl.Marker({
-    color : "red" ,
-    draggable : false
-  }).setLngLat( loc ) ; 
+  let loc: [ number, number ] = [ location.geometry.x, location.geometry.y  ] ;
+  let marker: mapboxgl.Marker = new mapboxgl.Marker({
+    color: "red",
+    draggable: false
+  }).setLngLat(loc) ; 
   
   if( map != undefined ){
-    marker.addTo( map ) ; 
-    map.flyTo( {
-      center : loc ,
-      zoom : 4 , 
-      speed : 0.3 
-    }) ;
+    marker.addTo(map) ; 
+    map.flyTo({
+      center: loc ,
+      zoom: 4 , 
+      speed: 0.3 
+    });
   }
-  addPopUp( location , marker , map ) ;
-  return marker ;
+  addPopUp(location, marker, map);
+  return marker;
 }
 
 /*
-* This method will add a popup to a marker and return the marker 
+* This method will construct the payload for the popup with different stats
+* Then the payload will be added in the popup and the popup is added to a marker and return the marker 
+* @param - data , json with the stats of covid for that country
+* @param - marker to which the popup needs to be added
+* @param - map to which the marker is added
 */
 
-function addPopUp( data : any , marker : mapboxgl.Marker ,  map : mapboxgl.Map | undefined ) : mapboxgl.Marker {
+function addPopUp( data: any, marker: mapboxgl.Marker,  map: mapboxgl.Map | undefined ): mapboxgl.Marker {
 
   let content =  "<div class='content container'>" + 
     "Confirmed Cases : " +  data.attributes.Confirmed.toFixed(2)      + "<br>" +
@@ -179,24 +176,24 @@ function addPopUp( data : any , marker : mapboxgl.Marker ,  map : mapboxgl.Map |
     "Mortality Rate : "  +  data.attributes.Mortality_Rate.toFixed(2) + "<br>" +
     "Incident Rate : "   +  data.attributes.Incident_Rate.toFixed(2)  + "<br>" +
     "</div>" ;
-  console.log( content );
   if( map != undefined ) {
     let popup = new mapboxgl.Popup().setHTML(content).addTo(map);
     marker.setPopup(popup);
   }
-  
   return marker ;
+
 }
 
 
 /*
-*  Method to remove a makrer from a map 
+*  This method will remove a marker
+* @param - marker instance that will be removed  
 */
 
 function removeMarker( marker : mapboxgl.Marker | undefined ){
-  console.log("Removing marker - " , marker );
   
   if( marker != undefined ){
     marker.remove();
   }
+
 }

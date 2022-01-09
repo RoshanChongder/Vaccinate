@@ -8,33 +8,24 @@ import { catchError , tap } from 'rxjs/operators';
 })
 export class LoginServiceService {
 
-  private isloggedIn : boolean = false ;
+  private isloggedIn: boolean = false ;
+  constructor( private http: HttpClient ) { }
 
-  constructor( private http : HttpClient ) { 
-  }
-
-  singIn( credentials : any ) : Observable<any> {
-    
+  singIn( credentials: any ): Observable<any> {
     let header = new HttpHeaders({ 'Content-Type': 'application/json' });
-    
-    // https://vaccinatee.herokuapp.com/ http://localhost:3000/
     return this.http.post<any>( "https://vacinate.herokuapp.com/login" , credentials ,
     { headers : header }).pipe(
         tap( ( data ) => { 
-          //console.log("Inside the tap - " , data ); 
           if( data.status == true ){
             this.isloggedIn = true ;
             localStorage.setItem("isloggedIn" , "true");
           }  
-          //console.log("Loggedin set to - - > " , this.isloggedIn );
-        } ) ,
-        catchError( this.handleError )
-    ) ;
-    
+        }),
+        catchError(this.handleError)
+    );
   }
 
-  isUserLoggedIn() : string {
-    //return this.isloggedIn ;
+  isUserLoggedIn(): string {
     let data : any = localStorage.getItem("isloggedIn");
     return  data ;
   }
@@ -42,14 +33,13 @@ export class LoginServiceService {
   private handleError(err: HttpErrorResponse) {
     let msg;
     if (err.error instanceof Error) {
-      //console.log("Client side error occured - ", err.error.message);
+      // console.log("Client side error occured - ", err.error.message);
       msg = err.error.message;
     } else {
-      //console.log("Server side error occured - ", err.status);
-      //console.log(err);
+      // console.log("Server side error occured - ", err.status);
+      // console.log(err);
       msg = err.error.message;
     }
-
     return throwError(msg);
   }
 

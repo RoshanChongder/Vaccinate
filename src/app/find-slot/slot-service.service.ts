@@ -23,11 +23,7 @@ export class SlotServiceService {
   }
 
   getSlotDetailWithDistrict( distId : any , date : any ) : Observable<any> {
-    //console.log("https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByDistrict?district_id=721&date=29-09-2021");
-    date =  date.slice(-2) + date.slice(-5,-3) + date.slice(0,4) ; 
-    //console.log( "https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByDistrict?district_id=" + distId +"&date=" + date );
-    
-    
+    date =  date.slice(-2) + date.slice(-5,-3) + date.slice(0,4);
     return this.http.get<any>( "https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByDistrict?district_id=" + distId +"&date=" + date )
     .pipe(
       catchError(this.handleError)
@@ -35,32 +31,24 @@ export class SlotServiceService {
   }
 
   getSlotDetailWithPinCode( pincode : any , date : any ) : Observable<any> {
-    
     date =  date.slice(-2) + date.slice(-5,-3) + date.slice(0,4) ; 
-    
     return this.http.get<any>( "https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByPin?pincode=" + pincode +"&date=" + date )
     .pipe(
       catchError(this.handleError)
     ); 
   }
 
-  formatDate( date : any ) : void {
-    
-  }
-
   private handleError(err: HttpErrorResponse) {
     let msg;
     if (err.error instanceof Error) {
-      console.log("Client side error occured - ", err.error.message);
+      // console.log("Client side error occured - ", err.error.message);
       msg = err.error.message;
     } else {
-      console.log("Server side error occured - ", err.status);
-      console.log(err);
+      // console.log("Server side error occured - ", err.status);
+      // console.log(err);
       msg = err.status;
     }
-
     return throwError(msg);
   }
-
 
 }

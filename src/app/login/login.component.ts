@@ -11,43 +11,37 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
 
   loggedin = new EventEmitter(); 
-  loginForm : FormGroup ;
-  errMsg : string = '' ;
-  showLogOut : boolean = false; 
+  loginForm: FormGroup ;
+  errMsg: string = '' ;
+  showLogOut: boolean = false; 
 
-  constructor( private router : Router , private formBuilder : FormBuilder , private loginService : LoginServiceService ) { 
+  constructor( private router: Router , private formBuilder: FormBuilder , private loginService: LoginServiceService ) { 
 
       this.loginForm = formBuilder.group({
-        id : ['' , Validators.required ] , 
-        passWord : [ '' , [ Validators.required , Validators.minLength(8) ] ]
+        id: ['' , Validators.required ] , 
+        passWord: [ '' , [ Validators.required , Validators.minLength(8) ] ]
       });
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   login(){
-    //console.log( this.loginForm.value);
     let obj : any = {
-      passWord : this.loginForm.controls.passWord.value , 
-      emailId  : this.loginForm.controls.id.value 
+      passWord: this.loginForm.controls.passWord.value , 
+      emailId: this.loginForm.controls.id.value 
     }
 
-    //console.log( obj );
     this.loginService.singIn( obj ).subscribe(
       ( response ) => {
-        //console.log("Response came from the server");
-        //console.log(response);
         if ( response.status ==  true ){
-          //console.log("Login successful");
           this.showLogOut = true;
-          this.loggedin.emit();   // let the parent know that te login was successful
+          this.loggedin.emit();   
           setTimeout( ()=> this.router.navigate(['/find/slot']) , 1000 ) ;
         }else {
-          //console.log("login failed");
+          // console.log("login failed");
         }
       } , ( error ) => {
-        //console.log("Error occured while logging in."); 
+        // show banner notification
         this.errMsg = error.message ;
       }
     );

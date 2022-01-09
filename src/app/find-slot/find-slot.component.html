@@ -1,5 +1,5 @@
-<button type="button" (click)="sdist()" *ngIf="searchByPincode && !showTable" class="btn btn-primary" id="searchbtn" > Search By District </button>
-<button type="button" (click)="spin()" *ngIf="searchByDist && !showTable" class="btn btn-primary" id="searchbtn" > Search By PinCode </button>
+<button type="button" (click)="searchByDistrict()" *ngIf="searchByPincode && !showTable" class="btn btn-primary" id="searchbtn" > Search By District </button>
+<button type="button" (click)="searchByPinCode()" *ngIf="searchByDist && !showTable" class="btn btn-primary" id="searchbtn" > Search By PinCode </button>
 
 <div *ngIf="searchByDist">
 
